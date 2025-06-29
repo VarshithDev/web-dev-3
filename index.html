@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Styling and JavaScript - Task 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* Header Styles */
+        
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2rem;
+        }
+        /* Section Styles */
+        
+        .section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 0.5rem;
+        }
+        /* 1. RESPONSIVE DESIGN SECTION */
+        
+        .responsive-demo {
+            background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+        
+        .responsive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .responsive-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+        }
+        /* 2. QUIZ SECTION */
+        
+        .quiz-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .question {
+            margin-bottom: 1.5rem;
+        }
+        
+        .question h3 {
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .option {
+            padding: 0.8rem;
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .option:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+        }
+        
+        .option.selected {
+            background: #2196f3;
+            color: white;
+            border-color: #1976d2;
+        }
+        
+        .option.correct {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .option.incorrect {
+            background: #f44336;
+            color: white;
+        }
+        
+        .quiz-controls {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0 0.5rem;
+        }
+        
+        .btn:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .score {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-top: 1rem;
+        }
+        /* 3. IMAGE CAROUSEL SECTION */
+        
+        .carousel-container {
+            position: relative;
+            max-width: 100%;
+            margin: 0 auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .carousel-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+        }
+        
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+        
+        .carousel-slide.active {
+            opacity: 1;
+        }
+        
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: background 0.3s ease;
+        }
+        
+        .carousel-nav:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .carousel-nav.prev {
+            left: 10px;
+        }
+        
+        .carousel-nav.next {
+            right: 10px;
+        }
+        
+        .carousel-indicators {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .indicator {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .indicator.active {
+            background: #667eea;
+        }
+        /* 4. API DATA SECTION */
+        
+        .api-container {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+        }
+        
+        .api-controls {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .data-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .data-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .data-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+        /* RESPONSIVE MEDIA QUERIES */
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .section {
+                padding: 1rem;
+            }
+            .responsive-grid {
+                grid-template-columns: 1fr;
+            }
+            .carousel-wrapper {
+                height: 250px;
+            }
+            .carousel-nav {
+                padding: 10px 15px;
+                font-size: 1.2rem;
+            }
+            .data-display {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .section h2 {
+                font-size: 1.4rem;
+            }
+            .carousel-wrapper {
+                height: 200px;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (min-width: 1200px) {
+            .responsive-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            .data-display {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Advanced Styling & JavaScript</h1>
+            <p class="subtitle"></p>
+        </header>
+
+        <!-- Section 1: Responsive Design -->
+        <div class="section">
+            <h2> Responsive Design Using Media Queries</h2>
+            <div class="responsive-demo">
+                <h3>Responsive Layout Demo</h3>
+                <p>This layout adapts to different screen sizes using CSS media queries.</p>
+                <div class="responsive-grid">
+                    <div class="responsive-card">
+                        <h4>Mobile First</h4>
+                        <p>Optimized for mobile devices with touch-friendly interfaces.</p>
+                    </div>
+                    <div class="responsive-card">
+                        <h4>Tablet Ready</h4>
+                        <p>Perfect viewing experience on tablet devices.</p>
+                    </div>
+                    <div class="responsive-card">
+                        <h4>Desktop Enhanced</h4>
+                        <p>Full-featured experience on desktop screens.</p>
+                    </div>
+                    <div class="responsive-card">
+                        <h4>Ultra-wide Support</h4>
+                        <p>Scales beautifully on large monitors.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Interactive Quiz -->
+        <div class="section">
+            <h2>Interactive Quiz Using JavaScript</h2>
+            <div class="quiz-container">
+                <div id="quiz-content">
+                    <!-- Quiz questions will be loaded here -->
+                </div>
+                <div class="quiz-controls">
+                    <button class="btn" onclick="submitQuiz()">Submit Quiz</button>
+                    <button class="btn" onclick="resetQuiz()">Reset Quiz</button>
+                    <div class="score" id="quiz-score"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Image Carousel -->
+        <div class="section">
+            <h2> Interactive Image Carousel</h2>
+            <div class="carousel-container">
+                <div class="carousel-wrapper">
+                    <div class="carousel-slide active">
+                        <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Nature 1">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Nature 2">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Nature 3">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Nature 4">
+                    </div>
+                </div>
+                <button class="carousel-nav prev" onclick="changeSlide(-1)">❮</button>
+                <button class="carousel-nav next" onclick="changeSlide(1)">❯</button>
+            </div>
+            <div class="carousel-indicators">
+                <span class="indicator active" onclick="currentSlide(1)"></span>
+                <span class="indicator" onclick="currentSlide(2)"></span>
+                <span class="indicator" onclick="currentSlide(3)"></span>
+                <span class="indicator" onclick="currentSlide(4)"></span>
+            </div>
+        </div>
+
+        <!-- Section 4: API Data Fetching -->
+        <div class="section">
+            <h2> Fetch Data from API Using JavaScript</h2>
+            <div class="api-container">
+                <div class="api-controls">
+                    <button class="btn" onclick="fetchJokes()">Fetch Random Jokes</button>
+                    <button class="btn" onclick="fetchWeather()">Fetch Weather Data</button>
+                    <button class="btn" onclick="clearData()">Clear Data</button>
+                </div>
+                <div id="api-data" class="data-display">
+                    <div class="data-card">
+                        <h3>Welcome!</h3>
+                        <p>Click the buttons above to fetch data from public APIs. This demonstrates real-time data fetching and dynamic content updates.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Quiz Data and Functionality
+        const quizData = [{
+            question: "What does CSS stand for?",
+            options: ["Computer Style Sheets", "Creative Style Sheets", "Cascading Style Sheets", "Colorful Style Sheets"],
+            correct: 2
+        }, {
+            question: "Which JavaScript method is used to add an element to the end of an array?",
+            options: ["push()", "pop()", "shift()", "unshift()"],
+            correct: 0
+        }, {
+            question: "What is the correct way to create a responsive design?",
+            options: ["Using fixed pixel values", "Using media queries", "Using tables", "Using frames"],
+            correct: 1
+        }, {
+            question: "Which API method is used to fetch data in JavaScript?",
+            options: ["getData()", "fetch()", "request()", "load()"],
+            correct: 1
+        }];
+
+        let userAnswers = [];
+
+        // Load Quiz
+        function loadQuiz() {
+            const quizContent = document.getElementById('quiz-content');
+            quizContent.innerHTML = '';
+
+            quizData.forEach((q, index) => {
+                        const questionDiv = document.createElement('div');
+                        questionDiv.className = 'question';
+
+                        questionDiv.innerHTML = `
+                    <h3>Question ${index + 1}: ${q.question}</h3>
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" onclick="selectOption(${index}, ${optIndex})">
+                                ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                quizContent.appendChild(questionDiv);
+            });
+        }
+
+        // Select Option
+        function selectOption(questionIndex, optionIndex) {
+            const questionDiv = document.querySelectorAll('.question')[questionIndex];
+            const options = questionDiv.querySelectorAll('.option');
+            
+            options.forEach(option => option.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            userAnswers[questionIndex] = optionIndex;
+        }
+
+        // Submit Quiz
+        function submitQuiz() {
+            let score = 0;
+            
+            quizData.forEach((q, index) => {
+                const questionDiv = document.querySelectorAll('.question')[index];
+                const options = questionDiv.querySelectorAll('.option');
+                
+                options.forEach((option, optIndex) => {
+                    option.classList.remove('correct', 'incorrect');
+                    
+                    if (optIndex === q.correct) {
+                        option.classList.add('correct');
+                        if (userAnswers[index] === optIndex) {
+                            score++;
+                        }
+                    } else if (userAnswers[index] === optIndex) {
+                        option.classList.add('incorrect');
+                    }
+                });
+            });
+            
+            document.getElementById('quiz-score').innerHTML = 'Score: ${score}/${quizData.length} (${Math.round(score/quizData.length*100)}%)';
+        }
+
+        // Reset Quiz
+        function resetQuiz() {
+            userAnswers = [];
+            document.getElementById('quiz-score').innerHTML = '';
+            loadQuiz();
+        }
+
+        // Carousel Functionality
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.carousel-slide');
+        const indicators = document.querySelectorAll('.indicator');
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            
+            if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex < 0) {
+                currentSlideIndex = slides.length - 1;
+            }
+            
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index - 1;
+            showSlide(currentSlideIndex);
+        }
+
+        // Auto-rotate carousel
+        setInterval(() => {
+            changeSlide(1);
+        }, 5000);
+
+        // API Data Fetching
+        async function fetchJokes() {
+            const apiData = document.getElementById('api-data');
+            apiData.innerHTML = '<div class="loading">Fetching jokes...</div>';
+            
+            try {
+                const promises = [];
+                for (let i = 0; i < 3; i++) {
+                    promises.push(fetch('https://official-joke-api.appspot.com/random_joke'));
+                }
+                
+                const responses = await Promise.all(promises);
+                const jokes = await Promise.all(responses.map(r => r.json()));
+                
+                apiData.innerHTML = jokes.map(joke => `
+                    <div class="data-card">
+                        <h3>😄 Random Joke</h3>
+                        <p><strong>Setup:</strong> ${joke.setup}</p>
+                        <p><strong>Punchline:</strong> ${joke.punchline}</p>
+                        <small>Type: ${joke.type}</small>
+                    </div>
+                `).join('');
+                
+            } catch (error) {
+                apiData.innerHTML = '<div class="data-card"><h3>Error</h3><p>Failed to fetch jokes. Please try again.</p></div>';
+            }
+        }
+
+        async function fetchWeather() {
+            const apiData = document.getElementById('api-data');
+            apiData.innerHTML = '<div class="loading">Fetching weather data...</div>';
+            
+            try {
+                // Using a public weather API that doesn't require authentication
+                const response = await fetch('https://api.weatherapi.com/v1/current.json?key=demo&q=London');
+                
+                if (!response.ok) {
+                    throw new Error('Weather API not available');
+                }
+                
+                const data = await response.json();
+                
+                apiData.innerHTML = `
+                    <div class="data-card">
+                        <h3>🌤 Weather Data</h3>
+                        <p><strong>Location:</strong> ${data.location.name}, ${data.location.country}</p>
+                        <p><strong>Temperature:</strong> ${data.current.temp_c}°C</p>
+                        <p><strong>Condition:</strong> ${data.current.condition.text}</p>
+                        <p><strong>Humidity:</strong> ${data.current.humidity}%</p>
+                        <small>Last updated: ${data.current.last_updated}</small>
+                    </div>
+                `;
+                
+            } catch (error) {
+                // Fallback with mock data since demo APIs might not be available
+                apiData.innerHTML = `
+                    <div class="data-card">
+                        <h3>🌤 Weather Data (Demo)</h3>
+                        <p><strong>Location:</strong> Mumbai, India</p>
+                        <p><strong>Temperature:</strong> 28°C</p>
+                        <p><strong>Condition:</strong> Partly Cloudy</p>
+                        <p><strong>Humidity:</strong> 65%</p>
+                        <small>Note: This is demo data as the weather API requires authentication</small>
+                    </div>
+                    <div class="data-card">
+                        <h3>📊 API Features</h3>
+                        <p>This demonstrates:</p>
+                        <ul>
+                            <li>Asynchronous API calls</li>
+                            <li>Error handling</li>
+                            <li>Dynamic content updates</li>
+                            <li>Loading states</li>
+                        </ul>
+                    </div>
+                `;
+            }
+        }
+
+        function clearData() {
+            document.getElementById('api-data').innerHTML = `
+                <div class="data-card">
+                    <h3>Ready to Fetch Data</h3>
+                    <p>Use the buttons above to fetch data from various APIs and see real-time updates!</p>
+                </div>
+            `;
+        }
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadQuiz();
+        });
+    </script>
+</body>
+
+</html>
